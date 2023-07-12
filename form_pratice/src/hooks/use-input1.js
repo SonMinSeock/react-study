@@ -1,3 +1,4 @@
+// useState로 이용
 import { useState } from "react";
 
 const useInput = (validateValue) => {
