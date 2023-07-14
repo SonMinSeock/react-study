@@ -1,6 +1,8 @@
+import useForm from "../hooks/use-form";
 import useInput from "../hooks/use-input";
+import InputFiled from "./UI/InputFiled";
 
-const BasicForm = (props) => {
+const BasicForm = () => {
   const {
     value: enteredFirstName,
     hasError: firstNameInputHasError,
@@ -28,15 +30,13 @@ const BasicForm = (props) => {
     reset: resetEmailInput,
   } = useInput((value) => value.trim().includes("@"));
 
-  let formValid = false;
-
-  if (
-    enteredFirstNameIsValid &&
-    enteredLastNameIsValid &&
-    enteredEmailIsValid
-  ) {
-    formValid = true;
-  }
+  const { formIsValid: formValid } = useForm({
+    inputsIsValid: {
+      enteredFirstNameIsValid,
+      enteredLastNameIsValid,
+      enteredEmailIsValid,
+    },
+  });
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
@@ -71,51 +71,39 @@ const BasicForm = (props) => {
   return (
     <form onSubmit={formSubmitHandler}>
       <div className="control-group">
-        <div className={firstNameInputClasses}>
-          <label htmlFor="name">First Name</label>
-          <input
-            type="text"
-            id="name"
-            onChange={firstNameChangeHandler}
-            onBlur={firstNameBlurHandler}
-            value={enteredFirstName}
-          />
-          {firstNameInputHasError ? (
-            <p className="error-text">FirstName must not be empty.</p>
-          ) : (
-            ""
-          )}
-        </div>
-        <div className={lastNameInputClasses}>
-          <label htmlFor="name">Last Name</label>
-          <input
-            type="text"
-            id="name"
-            onChange={lastNameChangeHandler}
-            onBlur={lastNameBlurHandler}
-            value={enteredLastName}
-          />
-          {lastNameInputHasError ? (
-            <p className="error-text">LastName must not be empty.</p>
-          ) : (
-            ""
-          )}
-        </div>
-      </div>
-      <div className={emailInputClasses}>
-        <label htmlFor="name">E-Mail Address</label>
-        <input
-          type="text"
-          id="name"
-          onChange={emailChangeHandler}
-          onBlur={emailBlurHandler}
-          value={enteredEmail}
+        <InputFiled
+          label="First Name"
+          name="firstName"
+          id="firstName"
+          inputClasses={firstNameInputClasses}
+          value={enteredFirstName}
+          handleChange={firstNameChangeHandler}
+          handleBlur={firstNameBlurHandler}
+          errorMessage="FirstName must not be empty."
+          hasError={firstNameInputHasError}
         />
-        {emailInputHasError ? (
-          <p className="error-text">It is not an email format.</p>
-        ) : (
-          ""
-        )}
+        <InputFiled
+          label="Last Name"
+          name="lastName"
+          id="lastName"
+          inputClasses={lastNameInputClasses}
+          value={enteredLastName}
+          handleChange={lastNameChangeHandler}
+          handleBlur={lastNameBlurHandler}
+          errorMessage="LastName must not be empty."
+          hasError={lastNameInputHasError}
+        />
+        <InputFiled
+          label="E-Mail"
+          name="email"
+          id="email"
+          inputClasses={emailInputClasses}
+          value={enteredEmail}
+          handleChange={emailChangeHandler}
+          handleBlur={emailBlurHandler}
+          errorMessage="It is not an email format."
+          hasError={emailInputHasError}
+        />
       </div>
       <div className="form-actions">
         <button disabled={!formValid}>Submit</button>
