@@ -30,7 +30,7 @@ export async function action({ request }) {
   });
 
   // 만약 이미 가입한 유저이면 422 상태코드 받은다.
-  if (response.status === 422 || response.status === 401) {
+  if (response.status === 422 || response.stats === 401) {
     return response;
   }
 
