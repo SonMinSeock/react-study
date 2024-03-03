@@ -39,6 +39,10 @@ export async function action({ request }) {
   }
 
   // 곧 백엔드에서 받은 토큰을 관리할거다.
+  const resData = await response.json();
+  const token = resData.token;
+
+  localStorage.setItem("token", token);
 
   return redirect("/");
 }
