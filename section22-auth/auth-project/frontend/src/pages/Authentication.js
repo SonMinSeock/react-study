@@ -43,6 +43,10 @@ export async function action({ request }) {
   const token = resData.token;
 
   localStorage.setItem("token", token);
+  // 토큰 만료기간 설정.
+  const expiration = new Date();
+  expiration.setHours(expiration.getHours() + 1);
+  localStorage.setItem("expiration", expiration.toISOString());
 
   return redirect("/");
 }
