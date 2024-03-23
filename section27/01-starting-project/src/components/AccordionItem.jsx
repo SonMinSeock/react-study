@@ -2,21 +2,13 @@ import React from "react";
 import { useAccordionContext } from "./Accordion";
 
 const AccordionItem = ({ id, children, title, className }) => {
-  const { openItemId, openItem, closeItem } = useAccordionContext();
+  const { openItemId, toggleItem } = useAccordionContext();
 
   const isOpen = openItemId === id;
 
-  function handleToggle() {
-    if (isOpen) {
-      closeItem();
-    } else {
-      openItem(id);
-    }
-  }
-
   return (
     <li className={className}>
-      <h3 onClick={handleToggle}>{title}</h3>
+      <h3 onClick={() => toggleItem(id)}>{title}</h3>
       <div className={isOpen ? "accordion-item-content open" : "accordion-item-content"}>{children}</div>
     </li>
   );
