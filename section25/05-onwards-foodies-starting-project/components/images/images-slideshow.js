@@ -1,3 +1,4 @@
+"use client";
 import burgerImg from "@/assets/burger.jpg";
 import curryImg from "@/assets/curry.jpg";
 import dumplingsImg from "@/assets/dumplings.jpg";
