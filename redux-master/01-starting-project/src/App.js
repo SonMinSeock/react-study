@@ -10,6 +10,7 @@ import { fetchCartData, sendCartData } from "./store/cart-actions";
 
 let isInitial = true;
 
+console.log(isInitial);
 function App() {
   const showCart = useSelector((state) => state.ui.cartIsVisible);
   const cart = useSelector((state) => state.cart);
