@@ -2,10 +2,16 @@ import React from "react";
 import classes from "./page.module.css";
 import Image from "next/image";
 import { getMeal } from "@/lib/meals";
+import { notFound } from "next/navigation";
 
 function MealDetailsPage({ params }) {
   const { mealSlug } = params;
   const meal = getMeal(mealSlug);
+
+  if (!meal) {
+    notFound();
+  }
+  
   meal.instructions = meal.instructions.replace(/\n/g, "<br />");
   return (
     <>
