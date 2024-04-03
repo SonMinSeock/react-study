@@ -6,7 +6,7 @@ import { getMeal } from "@/lib/meals";
 function MealDetailsPage({ params }) {
   const { mealSlug } = params;
   const meal = getMeal(mealSlug);
-  meal.instructions = meal.instructions.replace(/\n/g, "<br />")
+  meal.instructions = meal.instructions.replace(/\n/g, "<br />");
   return (
     <>
       <header className={classes.header}>
