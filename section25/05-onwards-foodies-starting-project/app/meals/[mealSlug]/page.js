@@ -4,6 +4,18 @@ import Image from "next/image";
 import { getMeal } from "@/lib/meals";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({ params }) {
+  const { mealSlug } = params;
+  const meal = getMeal(mealSlug);
+  if (!meal) {
+    notFound();
+  }
+  return {
+    title: meal.title,
+    description: meal.summary,
+  };
+}
+
 function MealDetailsPage({ params }) {
   const { mealSlug } = params;
   const meal = getMeal(mealSlug);
@@ -11,7 +23,7 @@ function MealDetailsPage({ params }) {
   if (!meal) {
     notFound();
   }
-  
+
   meal.instructions = meal.instructions.replace(/\n/g, "<br />");
   return (
     <>
@@ -28,12 +40,15 @@ function MealDetailsPage({ params }) {
         </div>
       </header>
       <main>
-        <p className={classes.instructions} dangerouslySetInnerHTML={{
-          __html: meal.instructions
-        }}></p>
+        <p
+          className={classes.instructions}
+          dangerouslySetInnerHTML={{
+            __html: meal.instructions,
+          }}
+        ></p>
       </main>
     </>
   );
-};
+}
 
 export default MealDetailsPage;
