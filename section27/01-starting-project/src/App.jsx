@@ -5,6 +5,7 @@ import amazonImg from "./assets/amazon-river.jpg";
 import caribbeanImg from "./assets/caribbean-beach.jpg";
 import desertImg from "./assets/desert-dunes.jpg";
 import forestImg from "./assets/forest-waterfall.jpg";
+import Place from "./components/Place/Place";
 
 const PLACES = [
   {
@@ -66,8 +67,8 @@ function App() {
         </Accordion>
       </section>
       <section>
-        <SearchableList items={PLACES} />
-        <SearchableList items={["item1", "item2"]} />
+        <SearchableList items={PLACES}>{(item) => <Place item={item} />}</SearchableList>
+        <SearchableList items={["item1", "item2"]}>{(item) => item}</SearchableList>
       </section>
     </main>
   );
